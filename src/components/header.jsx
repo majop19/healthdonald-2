@@ -4,6 +4,7 @@ import { useUserStore } from "@/lib/store/use-user-store";
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "./ui/button";
+import { useCartStore } from "@/lib/store/use-cart-store";
 export const Header = () => {
   return (
     <header className="flex items-center gap-2 border-b px-4 py-2 shadow-sm">
@@ -18,14 +19,11 @@ export const Header = () => {
       </Link>
       <div className="ml-auto"></div>
       <UserNameHeader />
-      <Button
+      <CartButtonHeader
         size="sm"
         variant="outline"
         className="inline-flex items-center gap-2"
-      >
-        0
-        <ShoppingBasket size={12} />
-      </Button>
+      />
     </header>
   );
 };
@@ -41,5 +39,20 @@ const UserNameHeader = () => {
       <User size={12} />
       <p className="text-sm">{userName}</p>
     </button>
+  );
+};
+
+const CartButtonHeader = (props) => {
+  const items = useCartStore((s) => s.items);
+
+  const quantity = Object.values(items).reduce((acc, item) => {
+    return acc + item.quantity || 0;
+  }, 0);
+
+  return (
+    <Button {...props}>
+      {quantity}
+      <ShoppingBasket size={12} />
+    </Button>
   );
 };

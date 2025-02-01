@@ -5,6 +5,7 @@ export const ItemsList = () => {
   const { data } = useSWR("/items", async () => {
     return getItems();
   });
+
   return (
     <div className="grid grid-cols-2 gap-4">
       {data?.map((d) => (

@@ -1,7 +1,8 @@
 /* eslint-disable @next/next/no-img-element */
-import { Button } from "@/components/ui/button";
 import { formatPrice } from "@/lib/format-price";
 import { cn } from "@/lib/utils";
+import { AddCart } from "../cart/add-cart";
+
 export const Item = ({ item }) => {
   return (
     <div className={cn("relative rounded-md border p-3 shadow-inner")}>
@@ -14,7 +15,7 @@ export const Item = ({ item }) => {
       />
       <p>{item.name}</p>
       <div className="flex items-end justify-end">
-        <Button>Add</Button>
+        <AddCart item={item} />
       </div>
     </div>
   );
