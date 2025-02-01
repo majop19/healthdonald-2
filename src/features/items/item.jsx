@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import { formatPrice } from "@/lib/format-price";
 import { cn } from "@/lib/utils";
-import { AddCart } from "../cart/add-cart";
+import { AddCart } from "../footer-cart/add-cart";
 
 export const Item = ({ item }) => {
   return (

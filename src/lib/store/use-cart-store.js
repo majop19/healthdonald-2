@@ -34,3 +34,12 @@ export const useCartStore = create(
     { name: "cart-storage" }
   )
 );
+
+export const useCartPrice = () => {
+  return useCartStore((s) => {
+    return Object.values(s.items).reduce((acc, curr) => {
+      if (!curr.quantity) return acc;
+      return acc + curr.quantity * curr.item.price;
+    }, 0);
+  });
+};
