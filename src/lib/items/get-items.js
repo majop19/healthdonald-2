@@ -1,10 +1,14 @@
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, query, where } from "firebase/firestore";
 import { db } from "../firebase";
 
-export const getItems = async () => {
-  const docRef = collection(db, "items");
+export const getItems = async (category) => {
+  let request = collection(db, "items");
 
-  const docSnap = await getDocs(docRef);
+  if (category) {
+    request = query(request, where("category", "==", category));
+  }
+
+  const docSnap = await getDocs(request);
 
   const data = [];
   docSnap.forEach((d) => {

@@ -1,9 +1,12 @@
 import { getItems } from "@/lib/items/get-items";
 import useSWR from "swr";
 import { Item } from "./item";
+import { useCategoryStore } from "@/lib/store/use-categories-store";
 export const ItemsList = () => {
-  const { data } = useSWR("/items", async () => {
-    return getItems();
+  const currentCategoryId = useCategoryStore((c) => c.currentCategoryId);
+
+  const { data } = useSWR(`/categories/${currentCategoryId}`, async () => {
+    return getItems(currentCategoryId);
   });
 
   return (

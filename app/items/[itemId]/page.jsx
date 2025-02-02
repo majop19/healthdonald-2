@@ -1,5 +1,5 @@
 "use client";
-import { CATEGORIES } from "@/categories.data";
+import { CATEGORIES } from "@/lib/categories.data";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import {
