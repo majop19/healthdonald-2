@@ -3,9 +3,14 @@ import { formatPrice } from "@/lib/format-price";
 import { cn } from "@/lib/utils";
 import { AddCart } from "../cart/add-cart";
 
-export const Item = ({ item }) => {
+export const Item = ({ item, className }) => {
   return (
-    <div className={cn("relative rounded-md border p-3 shadow-inner h-fit")}>
+    <div
+      className={cn(
+        "relative rounded-md border p-3 shadow-inner h-fit",
+        className
+      )}
+    >
       <p className="absolute right-2 top-2 font-mono">
         {formatPrice(item.price)}
       </p>
