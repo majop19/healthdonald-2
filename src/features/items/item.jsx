@@ -5,9 +5,22 @@ import { AddCart } from "../cart/add-cart";
 import { useAdminStore } from "@/lib/store/use-admin-store";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { Edit } from "lucide-react";
-import { Trash } from "lucide-react";
 import Link from "next/link";
-
+import { deleteItem } from "@/lib/items/delete-item";
+import { toast } from "sonner";
+import { mutate } from "swr";
+import { AlertDescription } from "@/components/ui/alert";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
+import { Trash } from "lucide-react";
 export const Item = ({ item, className }) => {
   const adminMode = useAdminStore((s) => s.adminMode);
 
@@ -26,9 +39,7 @@ export const Item = ({ item, className }) => {
           >
             <Edit size={12} />
           </Link>
-          <Button size="sm" variant="outline">
-            <Trash size={12} />
-          </Button>
+          <DeleteButton item={item} />
         </div>
       ) : null}
       <p className="absolute right-2 top-2 font-mono">
@@ -43,5 +54,36 @@ export const Item = ({ item, className }) => {
         <AddCart item={item} />
       </div>
     </div>
+  );
+};
+
+const DeleteButton = ({ item }) => {
+  const onDelete = async () => {
+    await deleteItem(item);
+    toast.success("Item was deleted");
+    mutate((key) => typeof key === "string" && key.startsWith("/items"));
+  };
+  return (
+    <AlertDialog>
+      <AlertDialogTrigger asChild>
+        <Button size="sm" variant="outline">
+          <Trash size={12} />
+        </Button>
+      </AlertDialogTrigger>
+      <AlertDialogContent>
+        <AlertDialogHeader>
+          <AlertDialogTitle>
+            You will delete the item with id {item.id}
+          </AlertDialogTitle>
+          <AlertDescription>
+            Are you sure ? This action is irreversible.
+          </AlertDescription>
+        </AlertDialogHeader>
+        <AlertDialogFooter>
+          <AlertDialogCancel>Cancel</AlertDialogCancel>
+          <AlertDialogAction onClick={onDelete}>Delete</AlertDialogAction>
+        </AlertDialogFooter>
+      </AlertDialogContent>
+    </AlertDialog>
   );
 };
