@@ -4,6 +4,7 @@ import { Toaster } from "@/components/ui/sonner";
 import { cn } from "@/lib/utils";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { AdminActions } from "@/features/admin/admin-actions";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -32,6 +33,7 @@ export default function RootLayout({ children }) {
         )}
       >
         <Toaster />
+        <AdminActions />
         <div className="m-auto flex h-screen max-w-md flex-col border-x">
           <Header />
           <main className="max-h-[calc(100%_-_100px)] flex-1 p-4">

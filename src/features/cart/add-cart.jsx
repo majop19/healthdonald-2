@@ -9,7 +9,11 @@ export const AddCart = ({ item }) => {
   const removeItemCart = useCartStore((s) => s.removeItemCart);
 
   if (!items[item.id]) {
-    return <Button onClick={() => addItemCart(item)}>Add</Button>;
+    return (
+      <Button onClick={() => addItemCart(item)} size="sm">
+        Add
+      </Button>
+    );
   }
 
   return (
